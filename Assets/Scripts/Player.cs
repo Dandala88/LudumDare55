@@ -16,14 +16,23 @@ public class Player : MonoBehaviour
     private bool punchArm;
     private float health;
     private Vector3 movement;
+    private int direction;
+    private PlayerFist[] fists;
 
     private CharacterController characterController;
 
     private void Awake()
     {
+        fists = GetComponentsInChildren<PlayerFist>();
+        direction = 1;
         health = maxHealth;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        EnableFists(false);
     }
 
     void Update()
@@ -36,6 +45,7 @@ public class Player : MonoBehaviour
         {
             movement.y += Physics.gravity.y * Time.deltaTime;
         }
+
         characterController.Move(movement * footSpeed * Time.deltaTime);
     }
 
@@ -52,6 +62,7 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
+            EnableFists(true);
             if (punchArm)
                 animator.Play("Fighter_Punch_Right");
             else
@@ -61,6 +72,7 @@ public class Player : MonoBehaviour
 
     public void EndPunch()
     {
+        EnableFists(false);
         animator.Play("Fighter_Idle");
         punchArm = !punchArm;
     }
@@ -75,5 +87,11 @@ public class Player : MonoBehaviour
     public void Death()
     {
         Destroy(gameObject);
+    }
+
+    private void EnableFists(bool enable)
+    {
+        foreach (var fist in fists)
+            fist.EnableFist(enable);
     }
 }
