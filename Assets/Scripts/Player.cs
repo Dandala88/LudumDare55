@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHurt
 {
     public float footSpeed;
     public float maxHealth;
+    public int attack;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
     public static event HealthChangeAction OnHealthChange;
 
     private Vector2 input;
     private Animator animator;
-    private bool punchArm;
+    private bool attackCycle;
     private float health;
     private Vector3 movement;
     private int direction;
-    private PlayerFist[] fists;
+    private Hitbox[] hitboxes;
 
     private CharacterController characterController;
 
     private void Awake()
     {
-        fists = GetComponentsInChildren<PlayerFist>();
+        hitboxes = GetComponentsInChildren<Hitbox>();
         direction = 1;
         health = maxHealth;
         animator = GetComponent<Animator>();
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        EnableFists(false);
+        EnableHitbox(false);
     }
 
     void Update()
@@ -58,28 +59,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Punch(InputAction.CallbackContext context)
+    public void Attack(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            EnableFists(true);
-            if (punchArm)
-                animator.Play("Fighter_Punch_Right");
+            EnableHitbox(true);
+            if (attackCycle)
+                animator.Play("Attack_Primary");
             else
-                animator.Play("Fighter_Punch_Left");
+                animator.Play("Attack_Secondary");
         }
     }
 
-    public void EndPunch()
+    public void EndAttack()
     {
-        EnableFists(false);
-        animator.Play("Fighter_Idle");
-        punchArm = !punchArm;
+        EnableHitbox(false);
+        animator.Play("Idle");
+        attackCycle = !attackCycle;
     }
 
-    public void Hurt()
+    public void Hurt(int amount)
     {
-        health--;
+        health-=amount;
         OnHealthChange.Invoke(health, maxHealth);
         Debug.Log(health / maxHealth);
     }
@@ -89,9 +90,14 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void EnableFists(bool enable)
+    private void EnableHitbox(bool enable)
     {
-        foreach (var fist in fists)
-            fist.EnableFist(enable);
+        foreach (var fist in hitboxes)
+            fist.EnableHitBox(enable);
+    }
+
+    public int Damage()
+    {
+        return attack;
     }
 }

@@ -15,18 +15,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Punch",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "af4a6c1b-2cce-4e6c-996b-232d0dbd6b45",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Kick",
-                    "type": "Button",
-                    "id": "bb4657bf-5481-4beb-8ef7-ddb76a26bf1b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -105,18 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "New control scheme",
-                    "action": "Punch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4824db9c-6b72-49e4-81b7-fab39d5ee8df",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "New control scheme",
-                    "action": "Kick",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

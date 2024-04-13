@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFist : MonoBehaviour
+public class Hitbox : MonoBehaviour
 {
     private SphereCollider coll;
 
@@ -13,14 +13,14 @@ public class PlayerFist : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<Enemy>() != null)
+        if (other.gameObject.GetComponent<IHurt>() != null)
         {
-            var enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.Hurt();
+            var hurtable = other.gameObject.GetComponent<IHurt>();
+            hurtable.Hurt(hurtable.Damage());
         }
     }
 
-    public void EnableFist(bool enable)
+    public void EnableHitBox(bool enable)
     {
         coll.enabled = enable;
     }
