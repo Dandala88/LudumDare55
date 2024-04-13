@@ -65,11 +65,11 @@ public class Enemy : MonoBehaviour
         punchArm = !punchArm;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.TryGetComponent(out Player player) && target == null && health > 0)
         {
-            target = other.gameObject;
+            target = player.gameObject;
         }
     }
 
