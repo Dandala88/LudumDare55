@@ -53,15 +53,15 @@ public class Player : MonoBehaviour
         if (context.started)
         {
             if (punchArm)
-                animator.Play("Player_Punch_Right");
+                animator.Play("Fighter_Punch_Right");
             else
-                animator.Play("Player_Punch_Left");
+                animator.Play("Fighter_Punch_Left");
         }
     }
 
     public void EndPunch()
     {
-        animator.Play("Player_Idle");
+        animator.Play("Fighter_Idle");
         punchArm = !punchArm;
     }
 
