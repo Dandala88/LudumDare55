@@ -41,8 +41,9 @@ public class Enemy : MonoBehaviour
 
         if (target != null)
         {
-            movement = (target.transform.position - transform.position).normalized;
-            if(punchElapsed >= punchInterval)
+            movement = (target.transform.transform.position - transform.position).normalized;
+            movement.y = 0;
+            if (punchElapsed >= punchInterval)
             {
                 Punch();
                 punchElapsed = 0;
@@ -50,6 +51,14 @@ public class Enemy : MonoBehaviour
             punchElapsed += Time.deltaTime;
         }
         characterController.Move(movement * footSpeed * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        if(target != null)
+        {
+            transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+        }
     }
 
     public void Punch(InputAction.CallbackContext context)
