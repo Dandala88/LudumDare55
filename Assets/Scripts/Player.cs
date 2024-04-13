@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour, IHurt
     public float footSpeed;
     public float maxHealth;
     public int attack;
+    public bool acquired;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
     public static event HealthChangeAction OnHealthChange;
@@ -16,11 +18,15 @@ public class Player : MonoBehaviour, IHurt
     private Animator animator;
     private bool attackCycle;
     private float health;
-    private Vector3 movement;
+    public Vector3 movement;
     private int direction;
     private Hitbox[] hitboxes;
+    private int currentSummonIndex;
 
     private CharacterController characterController;
+    private PlayerSummons playerSummons;
+
+    private bool attacking;
 
     private void Awake()
     {
@@ -29,11 +35,17 @@ public class Player : MonoBehaviour, IHurt
         health = maxHealth;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        playerSummons = GetComponentInParent<PlayerSummons>();
     }
 
     private void Start()
     {
         EnableHitbox(false);
+    }
+
+    private void OnEnable()
+    {
+        animator.Play("Idle");
     }
 
     void Update()
@@ -64,15 +76,28 @@ public class Player : MonoBehaviour, IHurt
         if (context.started)
         {
             EnableHitbox(true);
-            if (attackCycle)
-                animator.Play("Attack_Primary");
-            else
-                animator.Play("Attack_Secondary");
+            attacking = true;
+            animator.Play("Attack_Primary");
+
+            //if (attackCycle)
+            //    animator.Play("Attack_Primary");
+            //else
+            //    animator.Play("Attack_Secondary");
+        }
+    }
+
+    public void Summon(InputAction.CallbackContext context)
+    {
+        if (context.started && !attacking)
+        {
+            var value = (int)Mathf.Sign(context.ReadValue<float>());
+            playerSummons.Summon(value);
         }
     }
 
     public void EndAttack()
     {
+        attacking = false;
         EnableHitbox(false);
         animator.Play("Idle");
         attackCycle = !attackCycle;
