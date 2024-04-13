@@ -6,16 +6,21 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public float footSpeed;
-    public float health;
+    public float maxHealth;
+
+    public delegate void HealthChangeAction(float newHealth, float maxHealth);
+    public static event HealthChangeAction OnHealthChange;
 
     private Vector2 input;
     private Animator animator;
     private bool punchArm;
+    private float health;
 
     private CharacterController characterController;
 
     private void Awake()
     {
+        health = maxHealth;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
@@ -58,6 +63,8 @@ public class Player : MonoBehaviour
     public void Hurt()
     {
         health--;
+        OnHealthChange.Invoke(health, maxHealth);
+        Debug.Log(health / maxHealth);
     }
 
     public void Death()
