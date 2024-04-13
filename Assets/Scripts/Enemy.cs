@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Summon
 {
     public float footSpeed;
     public float punchInterval;
@@ -41,8 +41,8 @@ public class Enemy : MonoBehaviour
 
         if (target != null)
         {
-            movement = (target.transform.transform.position - transform.position).normalized;
-            movement.y = 0;
+            var targetMovement = (target.transform.transform.position - transform.position).normalized;
+            movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
             if (punchElapsed >= punchInterval)
             {
                 Punch();
