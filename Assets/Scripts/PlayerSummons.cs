@@ -8,6 +8,9 @@ public class PlayerSummons : MonoBehaviour
     private List<Player> summons = new List<Player>();
     private int currentSummonIndex;
 
+    public delegate void SummonChangeAction(Player newSummon);
+    public static event SummonChangeAction OnSummonChange;
+
     private void Awake()
     {
         var summonChildren = GetComponentsInChildren<Player>();
@@ -32,6 +35,7 @@ public class PlayerSummons : MonoBehaviour
         var selectedSummon = summons[currentSummonIndex];
         selectedSummon.transform.position = lastSummon.transform.position;
         selectedSummon.movement = lastSummon.movement;
+        OnSummonChange.Invoke(selectedSummon);
         selectedSummon.gameObject.SetActive(true);
         lastSummon.gameObject.SetActive(false);
     }
