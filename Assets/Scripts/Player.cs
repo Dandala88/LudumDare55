@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool punchArm;
     private float health;
+    private Vector3 movement;
 
     private CharacterController characterController;
 
@@ -25,14 +26,17 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
-    public Vector3 Movement
-    {
-        get { return new Vector3(input.x, 0f, input.y); }
-    }
-
     void Update()
     {
-        characterController.Move(Movement * footSpeed * Time.deltaTime);
+        if (characterController.isGrounded)
+        {
+            movement.y = 0f;
+        }
+        else
+        {
+            movement.y += Physics.gravity.y * Time.deltaTime;
+        }
+        characterController.Move(movement * footSpeed * Time.deltaTime);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -40,6 +44,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             input = context.ReadValue<Vector2>();
+            movement = new Vector3(input.x, 0f, input.y);
         }
     }
 

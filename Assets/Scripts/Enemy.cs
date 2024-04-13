@@ -30,6 +30,15 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (characterController.isGrounded)
+        {
+            movement.y = 0f;
+        }
+        else
+        {
+            movement.y += Physics.gravity.y * Time.deltaTime;
+        }
+
         if (target != null)
         {
             movement = (target.transform.position - transform.position).normalized;
