@@ -45,6 +45,7 @@ public class Player : MonoBehaviour, IHurt
 
     private void OnEnable()
     {
+        OnHealthChange.Invoke(health, maxHealth);
         animator.Play("Idle");
     }
 
