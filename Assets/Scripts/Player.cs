@@ -12,7 +12,8 @@ public class Player : MonoBehaviour, IHurt
     public bool acquired;
     public AudioClip hurtClip;
     public AudioClip attackClip;
-
+    public float switchDirectionTime;
+    public int direction;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
     public static event HealthChangeAction OnHealthChange;
@@ -22,9 +23,9 @@ public class Player : MonoBehaviour, IHurt
     private bool attackCycle;
     private float health;
     public Vector3 movement;
-    private int direction;
     private Hitbox[] hitboxes;
-    private int currentSummonIndex;
+    private float switchDirectionElapsed;
+    private Vector2 lastInput;
 
     private CharacterController characterController;
     private PlayerSummons playerSummons;
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour, IHurt
 
     void Update()
     {
+        transform.forward = Vector3.right * direction;
         if (characterController.isGrounded)
         {
             movement.y = 0f;
@@ -68,6 +70,15 @@ public class Player : MonoBehaviour, IHurt
         }
 
         characterController.Move(movement * footSpeed * Time.deltaTime);
+
+        if (Mathf.Sign(input.x) == Mathf.Sign(lastInput.x) && Mathf.Abs(input.x) > 0)
+            switchDirectionElapsed += Time.deltaTime;
+        else
+            switchDirectionElapsed = 0f;
+
+        if (switchDirectionElapsed > switchDirectionTime && direction != Mathf.Sign(input.x))
+            direction = -direction;
+        lastInput = input;
     }
 
     public void Move(InputAction.CallbackContext context)

@@ -666,6 +666,8 @@ MonoBehaviour:
   acquired: 1
   hurtClip: {fileID: 8300000, guid: b80de4a58fe31614a9e1d3bf4d515ad3, type: 3}
   attackClip: {fileID: 8300000, guid: eeac17b46f7ad784d9249393dffaf9bf, type: 3}
+  switchDirectionTime: 0.3
+  direction: 0
   movement: {x: 0, y: 0, z: 0}
 --- !u!114 &533209285
 MonoBehaviour:
@@ -3462,6 +3464,8 @@ MonoBehaviour:
   acquired: 1
   hurtClip: {fileID: 8300000, guid: 86e441aa8a5e34245b6f9d6bd762f5b2, type: 3}
   attackClip: {fileID: 8300000, guid: fa03bf39d79a66b4e84acd19a07c5feb, type: 3}
+  switchDirectionTime: 0.3
+  direction: 0
   movement: {x: 0, y: 0, z: 0}
 --- !u!114 &1681190039
 MonoBehaviour:
@@ -4108,6 +4112,8 @@ MonoBehaviour:
   acquired: 1
   hurtClip: {fileID: 8300000, guid: 2c32c37c337908a4895e2ba0fc84b993, type: 3}
   attackClip: {fileID: 8300000, guid: 055047754eff7274b82d7950fbffc033, type: 3}
+  switchDirectionTime: 0.3
+  direction: 0
   movement: {x: 0, y: 0, z: 0}
 --- !u!114 &1863912934
 MonoBehaviour:

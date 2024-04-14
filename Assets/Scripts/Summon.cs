@@ -69,7 +69,9 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (target != null)
         {
-            transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+            var diffVec = target.transform.position - transform.position;
+
+            transform.forward = Vector3.right * Mathf.Sign(diffVec.x);
         }
     }
 
