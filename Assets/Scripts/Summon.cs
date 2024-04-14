@@ -30,6 +30,7 @@ public class Summon : MonoBehaviour, IHurt
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        player = FindObjectOfType<Player>();
     }
 
     private void OnEnable()
@@ -41,12 +42,12 @@ public class Summon : MonoBehaviour, IHurt
     {
         movement = startDirection;
         animator.Play("Idle");
-        player = FindObjectOfType<Player>();
-        target = player.gameObject;
+        target = player?.gameObject;
     }
 
     void Update()
     {
+
         if (characterController.isGrounded)
         {
             movement.y = 0f;
@@ -58,7 +59,7 @@ public class Summon : MonoBehaviour, IHurt
 
         if (target != null)
         {
-            var targetMovement = (target.transform.transform.position - transform.position).normalized;
+            var targetMovement = (target.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
             if (attackElapsed >= attackInterval && attacking)
             {
@@ -67,7 +68,9 @@ public class Summon : MonoBehaviour, IHurt
             }
             attackElapsed += Time.deltaTime;
         }
+        movement = Vector3.zero;
         characterController.Move(movement * footSpeed * Time.deltaTime);
+
     }
 
     private void LateUpdate()
