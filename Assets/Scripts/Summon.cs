@@ -10,6 +10,7 @@ public class Summon : MonoBehaviour, IHurt
     public float attackInterval;
     public bool hasSecondary;
     public float deathSeconds;
+    public AudioClip hurtClip;
 
     private Animator animator;
     private bool attackCycle;
@@ -18,9 +19,11 @@ public class Summon : MonoBehaviour, IHurt
     private CharacterController characterController;
     private GameObject target;
     private float attackElapsed;
+    private AudioSource audioSource;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
@@ -88,6 +91,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
+        audioSource.PlayOneShot(hurtClip);
         health -= amount;
         if (health <= 0)
         {

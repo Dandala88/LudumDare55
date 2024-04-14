@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, IHurt
     public float maxHealth;
     public int attack;
     public bool acquired;
+    public AudioClip hurtClip;
+
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
     public static event HealthChangeAction OnHealthChange;
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour, IHurt
 
     private CharacterController characterController;
     private PlayerSummons playerSummons;
+    private AudioSource audioSource;
+
 
     private bool attacking;
 
@@ -36,6 +40,7 @@ public class Player : MonoBehaviour, IHurt
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerSummons = GetComponentInParent<PlayerSummons>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -107,6 +112,7 @@ public class Player : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
+        audioSource.PlayOneShot(hurtClip);
         health-=amount;
         OnHealthChange.Invoke(health, maxHealth);
         Debug.Log(health / maxHealth);

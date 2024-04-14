@@ -31,7 +31,6 @@ public class CameraController : MonoBehaviour
     {
         var rightOffset = offset + (Vector3.right * rightStop);
         var leftOffset = offset + (Vector3.right * leftStop);
-        Debug.Log(follow.transform.position.x);
         if (follow.transform.position.x < leftThreshold)
             transform.position = Vector3.SmoothDamp(transform.position, leftOffset, ref v, 1);
         else if(follow.transform.position.x > rightThreshold)

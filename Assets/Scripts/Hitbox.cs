@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
+    public AudioClip hit;
     private SphereCollider coll;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         coll = GetComponent<SphereCollider>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +19,7 @@ public class Hitbox : MonoBehaviour
         if (other.gameObject.GetComponent<IHurt>() != null)
         {
             var hurtable = other.gameObject.GetComponent<IHurt>();
+            audioSource.PlayOneShot(hit);
             hurtable.Hurt(hurtable.Damage());
         }
     }
