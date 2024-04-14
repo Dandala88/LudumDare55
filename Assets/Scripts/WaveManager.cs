@@ -54,12 +54,10 @@ public class WaveManager : MonoBehaviour
     private IEnumerator SpawnCoroutine()
     {
         var spawnPoint =  spawnPointRight.position;
-        var summon = Instantiate(primarySummon, transform, true);
+        var summon = Instantiate(primarySummon, spawnPoint, Quaternion.identity);
         currentWaveSummons.Add(summon);
-        summon.transform.position = spawnPoint;
         summon.startDirection = Vector3.left;
-        //var smokeClone = Instantiate(smoke, summon.transform);
-        //smokeClone.transform.position = summon.transform.position + Vector3.down;
+        var smokeClone = Instantiate(smoke, summon.transform.position + Vector3.down, Quaternion.identity);
         waveStarted = true;
         yield return new WaitForSeconds(spawnTime);
         var currentMaxSummons = GameManager.GetWaveMaxSummon(currentWave);

@@ -68,7 +68,6 @@ public class Summon : MonoBehaviour, IHurt
             }
             attackElapsed += Time.deltaTime;
         }
-        movement = Vector3.zero;
         characterController.Move(movement * footSpeed * Time.deltaTime);
 
     }
