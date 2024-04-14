@@ -2150,8 +2150,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 90d5a8e093f6aaa4da3da1dc911639e9, type: 2}
+  - {fileID: 2100000, guid: 45609575458fecf48800e5c315280814, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2516,7 +2515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoke: {fileID: 4364416987199287634, guid: 06a510c0c6208bc40861d30403388527, type: 3}
-  switchClip: {fileID: 8300000, guid: 1b5ad0b01f08cc74b92ba0c1231a8a5b, type: 3}
+  switchClip: {fileID: 0}
 --- !u!82 &635342612
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5296,7 +5295,7 @@ MonoBehaviour:
   nextScene: 2
   debug: 0
   smoke: {fileID: 4364416987199287634, guid: 06a510c0c6208bc40861d30403388527, type: 3}
-  waves: 3
+  waves: 1
   currentWave: 0
 --- !u!4 &1313143146
 Transform:
@@ -6535,8 +6534,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 89e81ecfb1d7e5e49938eedbcdd13179, type: 2}
+  - {fileID: 2100000, guid: 2e7b6d62bf35e85498ce7fa4f512fa56, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
