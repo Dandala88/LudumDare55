@@ -5293,6 +5293,8 @@ MonoBehaviour:
   spawnPointLeft: {fileID: 633239439}
   spawnPointRight: {fileID: 1560412802}
   spawnTime: 1
+  nextScene: 2
+  debug: 0
   smoke: {fileID: 4364416987199287634, guid: 06a510c0c6208bc40861d30403388527, type: 3}
   waves: 3
   currentWave: 0

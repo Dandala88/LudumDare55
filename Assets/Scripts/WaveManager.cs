@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class WaveManager : MonoBehaviour
     public Transform spawnPointLeft;
     public Transform spawnPointRight;
     public float spawnTime = 3;
+    public int nextScene;
+    public bool debug;
 
     public GameObject smoke;
 
@@ -42,7 +45,8 @@ public class WaveManager : MonoBehaviour
 
     private void WavesComplete()
     {
-        Debug.Log("Waves Complete!");
+        if(!debug)
+            SceneManager.LoadSceneAsync(nextScene);
     }
 
     private void StartWave()
