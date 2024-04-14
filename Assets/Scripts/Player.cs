@@ -13,7 +13,6 @@ public class Player : MonoBehaviour, IHurt
     public bool acquired;
     public AudioClip hurtClip;
     public AudioClip attackClip;
-    public float doubleTapTime;
     public int direction;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
@@ -25,9 +24,6 @@ public class Player : MonoBehaviour, IHurt
     private float health;
     public Vector3 movement;
     private Hitbox[] hitboxes;
-    private float doubleTapElapsed;
-    private Vector2 firstInput;
-    private Vector2 lastInput;
 
     private CharacterController characterController;
     private PlayerSummons playerSummons;
@@ -72,23 +68,6 @@ public class Player : MonoBehaviour, IHurt
         }
 
         characterController.Move(movement * footSpeed * Time.deltaTime);
-
-        if (lastInput.x != 0)
-        {
-            doubleTapElapsed = 0;
-            firstInput = lastInput;
-        }
-
-        if (doubleTapElapsed < doubleTapTime)
-        {
-            doubleTapElapsed += Time.deltaTime;
-            if(lastInput.x == 0 && input.x == firstInput.x)
-            {
-                direction = (int)Mathf.Sign(input.x);
-            }
-        }
-
-        lastInput = input;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -97,6 +76,8 @@ public class Player : MonoBehaviour, IHurt
         {
             input = context.ReadValue<Vector2>();
             movement = new Vector3(input.x, 0f, input.y);
+            if (input.x != 0)
+                direction = (int)Mathf.Sign(input.x);
         }
     }
 

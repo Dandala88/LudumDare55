@@ -53,7 +53,8 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnCoroutine()
     {
-        var spawnPoint =  spawnPointRight.position;
+        var spawnSide = Random.Range(0, 2) == 0 ? spawnPointLeft : spawnPointRight;
+        var spawnPoint = spawnSide.position + (Vector3.forward * Random.Range(-3, 4));
         var summon = Instantiate(primarySummon, spawnPoint, Quaternion.identity);
         currentWaveSummons.Add(summon);
         summon.startDirection = Vector3.left;
