@@ -6,15 +6,18 @@ using UnityEngine;
 public class PlayerSummons : MonoBehaviour
 {
     public GameObject smoke;
+    public AudioClip switchClip;
 
     private List<Player> summons = new List<Player>();
     private int currentSummonIndex;
+    private AudioSource audioSource;
 
     public delegate void SummonChangeAction(Player newSummon);
     public static event SummonChangeAction OnSummonChange;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         var summonChildren = GetComponentsInChildren<Player>();
         foreach (var child in summonChildren)
         {
@@ -43,6 +46,7 @@ public class PlayerSummons : MonoBehaviour
         lastSummon.gameObject.SetActive(false);
         var smokeClone = Instantiate(smoke, selectedSummon.transform);
         smokeClone.transform.position = selectedSummon.transform.position + Vector3.down;
+        audioSource.PlayOneShot(switchClip, GameManager.SfxVolumeScale);
     }
 
     private void WrapSummonIndex(int value)

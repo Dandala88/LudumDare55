@@ -19,7 +19,7 @@ public class Hitbox : MonoBehaviour
         if (other.gameObject.GetComponent<IHurt>() != null)
         {
             var hurtable = other.gameObject.GetComponent<IHurt>();
-            audioSource.PlayOneShot(hit, 2);
+            audioSource.PlayOneShot(hit,GameManager.SfxVolumeScale);
             hurtable.Hurt(hurtable.Damage());
         }
     }

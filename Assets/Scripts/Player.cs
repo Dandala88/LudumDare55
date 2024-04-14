@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, IHurt
         if (context.started)
         {
             if(!attacking)
-                audioSource.PlayOneShot(attackClip, 3);
+                audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
             EnableHitbox(true);
             attacking = true;
             animator.Play("Attack_Primary");
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip, 3f);
+        audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
         health-=amount;
         OnHealthChange.Invoke(health, maxHealth);
         if(health <= 0)
