@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IHurt
     public bool acquired;
     public AudioClip hurtClip;
     public AudioClip attackClip;
-    public float switchDirectionTime;
+    public float doubleTapTime;
     public int direction;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
@@ -24,7 +24,8 @@ public class Player : MonoBehaviour, IHurt
     private float health;
     public Vector3 movement;
     private Hitbox[] hitboxes;
-    private float switchDirectionElapsed;
+    private float doubleTapElapsed;
+    private Vector2 firstInput;
     private Vector2 lastInput;
 
     private CharacterController characterController;
@@ -71,13 +72,21 @@ public class Player : MonoBehaviour, IHurt
 
         characterController.Move(movement * footSpeed * Time.deltaTime);
 
-        if (Mathf.Sign(input.x) == Mathf.Sign(lastInput.x) && Mathf.Abs(input.x) > 0)
-            switchDirectionElapsed += Time.deltaTime;
-        else
-            switchDirectionElapsed = 0f;
+        if (lastInput.x != 0)
+        {
+            doubleTapElapsed = 0;
+            firstInput = lastInput;
+        }
 
-        if (switchDirectionElapsed > switchDirectionTime && direction != Mathf.Sign(input.x))
-            direction = -direction;
+        if (doubleTapElapsed < doubleTapTime)
+        {
+            doubleTapElapsed += Time.deltaTime;
+            if(lastInput.x == 0 && input.x == firstInput.x)
+            {
+                direction = (int)Mathf.Sign(input.x);
+            }
+        }
+
         lastInput = input;
     }
 
