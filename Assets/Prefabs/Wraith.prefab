@@ -784,6 +784,7 @@ MonoBehaviour:
   hasSecondary: 0
   deathSeconds: 1
   hurtClip: {fileID: 8300000, guid: 86e441aa8a5e34245b6f9d6bd762f5b2, type: 3}
+  attackClip: {fileID: 8300000, guid: fa03bf39d79a66b4e84acd19a07c5feb, type: 3}
 --- !u!143 &6431961067904399532
 CharacterController:
   m_ObjectHideFlags: 0

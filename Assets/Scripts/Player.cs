@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IHurt
     public int attack;
     public bool acquired;
     public AudioClip hurtClip;
+    public AudioClip attackClip;
 
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour, IHurt
     {
         if (context.started)
         {
+            if(!attacking)
+                audioSource.PlayOneShot(attackClip, 3);
             EnableHitbox(true);
             attacking = true;
             animator.Play("Attack_Primary");
@@ -112,7 +115,7 @@ public class Player : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip);
+        audioSource.PlayOneShot(hurtClip, 3f);
         health-=amount;
         OnHealthChange.Invoke(health, maxHealth);
         Debug.Log(health / maxHealth);

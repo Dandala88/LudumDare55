@@ -11,6 +11,7 @@ public class Summon : MonoBehaviour, IHurt
     public bool hasSecondary;
     public float deathSeconds;
     public AudioClip hurtClip;
+    public AudioClip attackClip;
 
     private Animator animator;
     private bool attackCycle;
@@ -69,6 +70,7 @@ public class Summon : MonoBehaviour, IHurt
 
     private void Attack()
     {
+        audioSource.PlayOneShot(attackClip, 3);
         if (attackCycle || !hasSecondary)
             animator.Play("Attack_Primary");
         else
@@ -91,7 +93,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip);
+        audioSource.PlayOneShot(hurtClip, 3);
         health -= amount;
         if (health <= 0)
         {
