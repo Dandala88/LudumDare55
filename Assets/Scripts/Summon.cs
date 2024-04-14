@@ -29,6 +29,11 @@ public class Summon : MonoBehaviour, IHurt
         characterController = GetComponent<CharacterController>();
     }
 
+    private void OnEnable()
+    {
+        PlayerSummons.OnSummonChange += ChangeTarget;
+    }
+
     private void Start()
     {
         movement = Vector3.left;
@@ -105,6 +110,11 @@ public class Summon : MonoBehaviour, IHurt
         }
     }
 
+    public void ChangeTarget(Player player)
+    {
+        target = player.gameObject;
+    }
+
     public int Damage()
     {
         return attack;
@@ -119,6 +129,11 @@ public class Summon : MonoBehaviour, IHurt
     public void Death()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        PlayerSummons.OnSummonChange -= ChangeTarget;
     }
 
     private void OnDestroy()
