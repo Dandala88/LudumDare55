@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IHurt
 {
@@ -138,12 +139,15 @@ public class Player : MonoBehaviour, IHurt
         audioSource.PlayOneShot(hurtClip, 3f);
         health-=amount;
         OnHealthChange.Invoke(health, maxHealth);
-        Debug.Log(health / maxHealth);
+        if(health <= 0)
+        {
+            Death();
+        }
     }
 
     public void Death()
     {
-        Destroy(gameObject);
+        SceneManager.LoadSceneAsync(0);
     }
 
     private void EnableHitbox(bool enable)

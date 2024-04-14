@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerSummons : MonoBehaviour
 {
+    public GameObject smoke;
+
     private List<Player> summons = new List<Player>();
     private int currentSummonIndex;
 
@@ -33,11 +35,14 @@ public class PlayerSummons : MonoBehaviour
         }
 
         var selectedSummon = summons[currentSummonIndex];
+        
         selectedSummon.transform.position = lastSummon.transform.position;
         selectedSummon.movement = lastSummon.movement;
         OnSummonChange.Invoke(selectedSummon);
         selectedSummon.gameObject.SetActive(true);
         lastSummon.gameObject.SetActive(false);
+        var smokeClone = Instantiate(smoke, selectedSummon.transform);
+        smokeClone.transform.position = selectedSummon.transform.position + Vector3.down;
     }
 
     private void WrapSummonIndex(int value)

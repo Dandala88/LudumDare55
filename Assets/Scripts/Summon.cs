@@ -12,6 +12,7 @@ public class Summon : MonoBehaviour, IHurt
     public float deathSeconds;
     public AudioClip hurtClip;
     public AudioClip attackClip;
+    public Vector3 startDirection;
 
     private Animator animator;
     private bool attackCycle;
@@ -21,6 +22,8 @@ public class Summon : MonoBehaviour, IHurt
     private GameObject target;
     private float attackElapsed;
     private AudioSource audioSource;
+    private Player player;
+    private bool attacking;
 
     private void Awake()
     {
@@ -36,8 +39,10 @@ public class Summon : MonoBehaviour, IHurt
 
     private void Start()
     {
-        movement = Vector3.left;
+        movement = startDirection;
         animator.Play("Idle");
+        player = FindObjectOfType<Player>();
+        target = player.gameObject;
     }
 
     void Update()
@@ -55,7 +60,7 @@ public class Summon : MonoBehaviour, IHurt
         {
             var targetMovement = (target.transform.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
-            if (attackElapsed >= attackInterval)
+            if (attackElapsed >= attackInterval && attacking)
             {
                 Attack();
                 attackElapsed = 0;
@@ -92,9 +97,17 @@ public class Summon : MonoBehaviour, IHurt
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Player player) && target == null && health > 0)
+        if (other.gameObject == player.gameObject && health > 0)
         {
-            target = player.gameObject;
+            attacking = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == player.gameObject)
+        {
+            attacking = false;
         }
     }
 
