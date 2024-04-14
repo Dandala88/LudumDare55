@@ -84,7 +84,7 @@ public class Summon : MonoBehaviour, IHurt
 
     private void Attack()
     {
-        audioSource.PlayOneShot(attackClip, 3);
+        audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
         if (attackCycle || !hasSecondary)
             animator.Play("Attack_Primary");
         else
@@ -115,7 +115,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip, 3);
+        audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
         health -= amount;
         if (health <= 0)
         {
