@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour, IHurt
 {
     public float footSpeed;
+    public float health;
     public float maxHealth;
     public int attack;
     public bool acquired;
@@ -22,7 +23,6 @@ public class Player : MonoBehaviour, IHurt
     private Vector2 input;
     private Animator animator;
     private bool attackCycle;
-    private float health;
     public Vector3 movement;
     private Hitbox[] hitboxes;
 
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour, IHurt
     {
         attacking = false;
         EnableHitbox(false);
-        animator.Play("Walk");
+        animator.Play("Idle");
         attackCycle = !attackCycle;
     }
 
@@ -138,7 +138,10 @@ public class Player : MonoBehaviour, IHurt
 
     public void Death()
     {
-        SceneManager.LoadSceneAsync(0);
+        if(playerSummons.HasSummonsLeft())
+            playerSummons.Summon(1);
+        else
+            SceneManager.LoadSceneAsync(0);
     }
 
     private void EnableHitbox(bool enable)

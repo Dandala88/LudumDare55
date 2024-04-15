@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool quickLevels = true;
     public static bool paused;
     public const float SfxVolumeScale = 3f;
 
@@ -19,6 +20,12 @@ public class GameManager : MonoBehaviour
         Wraith,
         Genie,
         Angel,
+    }
+
+    public void Start()
+    {
+        if (quickLevels)
+            Debug.LogWarning("Quick Levels turned on. Turn off before deployment");
     }
 
     [ContextMenu("Summon Got It")]
