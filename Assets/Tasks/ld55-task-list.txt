@@ -1,6 +1,7 @@
 ----------------------------------
 To Do
 ----------------------------------
+can pause during screen transition
 attack penalty
 balance different summons
 bosses
