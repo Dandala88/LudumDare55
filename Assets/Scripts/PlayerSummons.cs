@@ -22,6 +22,7 @@ public class PlayerSummons : MonoBehaviour
         foreach (var child in summonChildren)
         {
             summons.Add(child);
+            child.acquired = GameManager.GetSummonFlag(child.summonType);
             child.gameObject.SetActive(false);
         }
 
@@ -38,6 +39,8 @@ public class PlayerSummons : MonoBehaviour
         }
 
         var selectedSummon = summons[currentSummonIndex];
+
+        if (selectedSummon == lastSummon) return;
         
         selectedSummon.transform.position = lastSummon.transform.position;
         selectedSummon.movement = lastSummon.movement;

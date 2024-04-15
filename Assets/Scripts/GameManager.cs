@@ -8,6 +8,19 @@ public class GameManager : MonoBehaviour
     public static bool paused;
     public const float SfxVolumeScale = 3f;
 
+    public static bool priest = true;
+    public static bool wraith;
+    public static bool genie;
+    public static bool angel;
+
+    public enum SummonType
+    {
+        Priest,
+        Wraith,
+        Genie,
+        Angel,
+    }
+
     [ContextMenu("Summon Got It")]
     public void SummonGotIt()
     {
@@ -33,5 +46,38 @@ public class GameManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    public static void SetSummonFlag(SummonType summonType)
+    {
+        switch(summonType)
+        {
+            case SummonType.Priest:
+                priest = true;
+                break;
+            case SummonType.Wraith:
+                wraith = true;
+                break;
+            case SummonType.Genie:
+                genie = true;
+                break;
+            case SummonType.Angel:
+                angel = true;
+                break;
+        }
+    }
+
+    public static bool GetSummonFlag(SummonType summonType)
+    {
+        switch (summonType)
+        {
+            case SummonType.Wraith:
+                return wraith;
+            case SummonType.Genie:
+                return genie;
+            case SummonType.Angel:
+                return angel;
+        }
+        return priest;
     }
 }
