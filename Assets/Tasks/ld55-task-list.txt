@@ -1,28 +1,30 @@
 ----------------------------------
 To Do
 ----------------------------------
-new game + indicator
+attack penalty
 balance different summons
 bosses
+combo system
 consider making instant death on priest dying
 
 ----------------------------------
 Complete
 ----------------------------------
-X - preserve direction on change
-x - enemy target bug
-x - angel projectile: just adjusted animation
-x - new game + level transition text change
-x - music for cybertron level
-x - music for heaven level
-x - add random enemies in cybertron
-x - remove quit button it doesnt work in webgl
-x - summon die swap
-x - add iframes
-x - alt summon swap
-x - alt attack
-x - lower volume on hell track a touch: just made all sounds the same playback level
-x - add resolve for getting pinned with too many enemies: just added support for all direction movement
+preserve direction on change
+enemy target bug
+angel projectile: just adjusted animation
+new game + level transition text change
+music for cybertron level
+music for heaven level
+add random enemies in cybertron
+remove quit button it doesnt work in webgl
+summon die swap
+add iframes
+alt summon swap
+alt attack
+lower volume on hell track a touch: just made all sounds the same playback level
+add resolve for getting pinned with too many enemies: just added support for all direction movement
+new game + indicator
 
 
 ----------------------------------
