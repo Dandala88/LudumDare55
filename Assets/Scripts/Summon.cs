@@ -13,6 +13,9 @@ public class Summon : MonoBehaviour, IHurt
     public AudioClip hurtClip;
     public AudioClip attackClip;
     public Vector3 startDirection;
+    public float iFrames;
+    [Tooltip("iFlashFrames / iframes = time between flashes")]
+    public float iFlashFrames;
 
     private Animator animator;
     private bool attackCycle;
@@ -24,6 +27,9 @@ public class Summon : MonoBehaviour, IHurt
     private AudioSource audioSource;
     private Player player;
     private bool attacking;
+    private bool invincible;
+    private Renderer rend;
+
 
     private void Awake()
     {
@@ -31,6 +37,7 @@ public class Summon : MonoBehaviour, IHurt
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         player = FindObjectOfType<Player>();
+        rend = GetComponentInChildren<Renderer>();
     }
 
     private void OnEnable()
@@ -57,7 +64,7 @@ public class Summon : MonoBehaviour, IHurt
             movement.y += Physics.gravity.y * Time.deltaTime;
         }
 
-        if (target != null)
+        if (target != null && !invincible)
         {
             var targetMovement = (target.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
@@ -84,11 +91,14 @@ public class Summon : MonoBehaviour, IHurt
 
     private void Attack()
     {
-        audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
-        if (attackCycle || !hasSecondary)
-            animator.Play("Attack_Primary");
-        else
-            animator.Play("Attack_Secondary");
+        if (!invincible)
+        {
+            audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
+            if (attackCycle || !hasSecondary)
+                animator.Play("Attack_Primary");
+            else
+                animator.Play("Attack_Secondary");
+        }
     }
 
     public void EndAttack()
@@ -115,15 +125,20 @@ public class Summon : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
-        health -= amount;
-        if (health <= 0)
+        if (!invincible)
         {
-            target = null;
-            characterController.height = 0;
-            movement = Vector3.down;
-            animator.Play("Death");
-            StartCoroutine(DeathCoroutine());
+            audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
+            health -= amount;
+            if (health <= 0)
+            {
+                target = null;
+                characterController.height = 0;
+                movement = Vector3.down;
+                animator.Play("Death");
+                StartCoroutine(DeathCoroutine());
+            }
+            else
+                StartCoroutine(IFramesCoroutine());
         }
     }
 
@@ -156,5 +171,26 @@ public class Summon : MonoBehaviour, IHurt
     private void OnDestroy()
     {
         WaveManager.currentWaveSummons.Remove(this);
+    }
+
+    private IEnumerator IFramesCoroutine()
+    {
+        var baseColor = rend.materials[0].color;
+        var colorToggle = false;
+        invincible = true;
+        var t = 0f;
+        while (t < iFrames)
+        {
+            if(colorToggle)
+                rend.materials[0].color = Color.red;
+            else
+                rend.materials[0].color = baseColor;
+            colorToggle = !colorToggle;
+            var flashTime = iFlashFrames / iFrames;
+            yield return new WaitForSeconds(flashTime);
+            t += flashTime;
+        }
+        rend.materials[0].color = baseColor;
+        invincible = false;
     }
 }

@@ -111,6 +111,17 @@
                 },
                 {
                     "name": "",
+                    "id": "766e4aab-9347-42ad-aa44-69c47cc9ce60",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f90fd615-b4f7-45b3-a0f4-a6a5da0f68a2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -130,6 +141,39 @@
                     "action": "Summon",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "f32f0435-cfed-46a8-92c2-5b91c742083f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Summon",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "5504a420-4208-4c85-9b45-d65b49301d8b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Summon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7e9c0ea2-1c61-4a7f-ab81-082f344c34fa",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Summon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

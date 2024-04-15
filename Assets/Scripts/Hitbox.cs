@@ -16,10 +16,10 @@ public class Hitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<IHurt>() != null)
+        if (other.gameObject.GetComponent<IHurt>() != null && other.gameObject.layer != gameObject.layer)
         {
             var hurtable = other.gameObject.GetComponent<IHurt>();
-            audioSource.PlayOneShot(hit,GameManager.SfxVolumeScale);
+            audioSource.PlayOneShot(hit, GameManager.SfxVolumeScale);
             hurtable.Hurt(hurtable.Damage());
         }
     }

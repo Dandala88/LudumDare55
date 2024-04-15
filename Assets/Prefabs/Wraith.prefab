@@ -820,6 +820,8 @@ MonoBehaviour:
   hurtClip: {fileID: 8300000, guid: 86e441aa8a5e34245b6f9d6bd762f5b2, type: 3}
   attackClip: {fileID: 8300000, guid: fa03bf39d79a66b4e84acd19a07c5feb, type: 3}
   startDirection: {x: 0, y: 0, z: 0}
+  iFrames: 0.5
+  iFlashFrames: 0.02
 --- !u!143 &6431961067904399532
 CharacterController:
   m_ObjectHideFlags: 0
@@ -841,8 +843,8 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 15
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}

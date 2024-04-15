@@ -1,0 +1,39 @@
+----------------------------------
+To Do
+----------------------------------
+
+
+balance different summons
+bosses
+combo system
+consider making instant death on priest dying
+come up with lots of summon puns and randomize transition
+
+----------------------------------
+Complete
+----------------------------------
+preserve direction on change
+enemy target bug
+angel projectile: just adjusted animation
+new game + level transition text change
+music for cybertron level
+music for heaven level
+add random enemies in cybertron
+remove quit button it doesnt work in webgl
+summon die swap
+add iframes
+alt summon swap
+alt attack
+lower volume on hell track a touch: just made all sounds the same playback level
+add resolve for getting pinned with too many enemies: just added support for all direction movement
+new game + indicator
+can pause during screen transition
+
+
+----------------------------------
+Won't Do?
+----------------------------------
+hide cursor
+add restart to pause menu
+attack penalty: penalty is animation time but it'd be nice to give more feedback
+

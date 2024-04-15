@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSummons : MonoBehaviour
 {
     public GameObject smoke;
     public AudioClip switchClip;
 
-    private List<Player> summons = new List<Player>();
+    public List<Player> summons = new List<Player>();
     private int currentSummonIndex;
     private AudioSource audioSource;
 
@@ -33,7 +34,7 @@ public class PlayerSummons : MonoBehaviour
     {
         var lastSummon = summons[currentSummonIndex];
         WrapSummonIndex(value);
-        while (!summons[currentSummonIndex].acquired)
+        while (!summons[currentSummonIndex].acquired || summons[currentSummonIndex].health <= 0)
         {
             WrapSummonIndex(value);
         }
@@ -61,6 +62,40 @@ public class PlayerSummons : MonoBehaviour
             currentSummonIndex = summons.Count - 1;
         else
             currentSummonIndex += value;
+    }
+
+    public bool HasSummonsLeft()
+    {
+        bool hasSummonsLeft = false;
+        foreach (var summon in summons)
+            if(summon.health > 0 && summon.acquired)
+                hasSummonsLeft = true;
+        return hasSummonsLeft;
+    }
+
+    public void Summon(InputAction.CallbackContext context)
+    {
+        if (context.started && !summons[currentSummonIndex].attacking)
+        {
+            var value = (int)Mathf.Sign(context.ReadValue<float>());
+            Summon(value);
+        }
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            summons[currentSummonIndex].Attack();
+        }
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            summons[currentSummonIndex].Move(context.ReadValue<Vector2>());
+        }
     }
 
 }

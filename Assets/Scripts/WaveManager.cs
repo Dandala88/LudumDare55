@@ -32,6 +32,8 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         waves += CreditsManager.newGames;
+        if (GameManager.quickLevels)
+            waves = 1;
         StartWave();
     }
 

@@ -8,12 +8,16 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour, IHurt
 {
     public float footSpeed;
+    public float health;
     public float maxHealth;
     public int attack;
     public bool acquired;
     public AudioClip hurtClip;
     public AudioClip attackClip;
     public int direction;
+    public float iFrames;
+    [Tooltip("iFlashFrames / iframes = time between flashes")]
+    public float iFlashFrames;
     public GameManager.SummonType summonType;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
@@ -22,16 +26,18 @@ public class Player : MonoBehaviour, IHurt
     private Vector2 input;
     private Animator animator;
     private bool attackCycle;
-    private float health;
     public Vector3 movement;
     private Hitbox[] hitboxes;
 
     private CharacterController characterController;
     private PlayerSummons playerSummons;
     private AudioSource audioSource;
+    private bool invincible;
+    private Renderer rend;
 
-
-    private bool attacking;
+    
+    public bool attacking;
+    private bool preventAutoSwitch;
 
     private void Awake()
     {
@@ -42,6 +48,10 @@ public class Player : MonoBehaviour, IHurt
         characterController = GetComponent<CharacterController>();
         playerSummons = GetComponentInParent<PlayerSummons>();
         audioSource = GetComponent<AudioSource>();
+        rend = GetComponentInChildren<Renderer>();
+
+        if (Input.anyKey)
+            preventAutoSwitch = true;
     }
 
     private void Start()
@@ -58,7 +68,6 @@ public class Player : MonoBehaviour, IHurt
 
     void Update()
     {
-        transform.forward = Vector3.right * direction;
         if (characterController.isGrounded)
         {
             movement.y = 0f;
@@ -71,49 +80,47 @@ public class Player : MonoBehaviour, IHurt
         characterController.Move(movement * footSpeed * Time.deltaTime);
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void Move(Vector2 sentInput)
     {
-        if (context.performed)
-        {
-            input = context.ReadValue<Vector2>();
-            movement = new Vector3(input.x, 0f, input.y);
-            if (input.x != 0)
-            {
-                if(!attacking)
-                    animator.Play("Walk");
-                direction = (int)Mathf.Sign(input.x);
-            }
-            else
-            {
-                if (!attacking)
-                    animator.Play("Idle");
-            }
-        }
-    }
-
-    public void Attack(InputAction.CallbackContext context)
-    {
-        if (context.started)
+        input = sentInput;
+        movement = new Vector3(input.x, 0f, input.y);
+        if (input.x != 0)
         {
             if(!attacking)
-                audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
-            EnableHitbox(true);
-            attacking = true;
-            animator.Play("Attack_Primary");
-
-            //if (attackCycle)
-            //    animator.Play("Attack_Primary");
-            //else
-            //    animator.Play("Attack_Secondary");
+                animator.Play("Walk");
+            direction = (int)Mathf.Sign(input.x);
         }
+        else
+        {
+            if (!attacking)
+                animator.Play("Idle");
+        }
+
+        if (input.y != 0 || input.x != 0)
+            transform.forward = movement.normalized;
+    }
+
+    public void Attack()
+    {
+        if(!attacking)
+            audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
+        EnableHitbox(true);
+        attacking = true;
+        animator.Play("Attack_Primary");
     }
 
     public void Summon(InputAction.CallbackContext context)
     {
-        if (context.started && !attacking)
+        if (context.started && !attacking && !preventAutoSwitch)
         {
             var value = (int)Mathf.Sign(context.ReadValue<float>());
+            Debug.Log(value);
             playerSummons.Summon(value);
+        }
+
+        if(context.canceled)
+        {
+            preventAutoSwitch = false;
         }
     }
 
@@ -121,24 +128,32 @@ public class Player : MonoBehaviour, IHurt
     {
         attacking = false;
         EnableHitbox(false);
-        animator.Play("Walk");
+        animator.Play("Idle");
         attackCycle = !attackCycle;
     }
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
-        health-=amount;
-        OnHealthChange.Invoke(health, maxHealth);
-        if(health <= 0)
+        if (!invincible)
         {
-            Death();
+            audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
+            health -= amount;
+            OnHealthChange.Invoke(health, maxHealth);
+            if (health <= 0)
+            {
+                Death();
+            }
+            else
+                StartCoroutine(IFramesCoroutine());
         }
     }
 
     public void Death()
     {
-        SceneManager.LoadSceneAsync(0);
+        if(playerSummons.HasSummonsLeft())
+            playerSummons.Summon(1);
+        else
+            SceneManager.LoadSceneAsync(0);
     }
 
     private void EnableHitbox(bool enable)
@@ -150,5 +165,26 @@ public class Player : MonoBehaviour, IHurt
     public int Damage()
     {
         return attack;
+    }
+
+    private IEnumerator IFramesCoroutine()
+    {
+        var baseColor = rend.materials[0].color;
+        var colorToggle = false;
+        invincible = true;
+        var t = 0f;
+        while (t < iFrames)
+        {
+            if (colorToggle)
+                rend.materials[0].color = Color.red;
+            else
+                rend.materials[0].color = baseColor;
+            colorToggle = !colorToggle;
+            var flashTime = iFlashFrames / iFrames;
+            yield return new WaitForSeconds(flashTime);
+            t += flashTime;
+        }
+        rend.materials[0].color = baseColor;
+        invincible = false;
     }
 }
