@@ -1,7 +1,6 @@
 ----------------------------------
 To Do
 ----------------------------------
-add resolve for getting pinned with too many enemies
 new game + indicator
 balance different summons
 bosses
@@ -22,7 +21,9 @@ x - summon die swap
 x - add iframes
 x - alt summon swap
 x - alt attack
-x -lower volume on hell track a touch: just made all sounds the same playback level
+x - lower volume on hell track a touch: just made all sounds the same playback level
+x - add resolve for getting pinned with too many enemies: just added support for all direction movement
+
 
 ----------------------------------
 Won't Do

@@ -68,7 +68,6 @@ public class Player : MonoBehaviour, IHurt
 
     void Update()
     {
-        transform.forward = Vector3.right * direction;
         if (characterController.isGrounded)
         {
             movement.y = 0f;
@@ -96,6 +95,9 @@ public class Player : MonoBehaviour, IHurt
             if (!attacking)
                 animator.Play("Idle");
         }
+
+        if (input.y != 0 || input.x != 0)
+            transform.forward = movement.normalized;
     }
 
     public void Attack()
