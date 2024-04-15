@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Brimstone.unity
     guid: 5a07d26ecc874bf45b57797345acfbbf
   - enabled: 1
-    path: Assets/Scenes/Heaven.unity
+    path: Assets/Scenes/Cybertron.unity
     guid: 58e1aa44978c12c458aeb72c94568e71
   - enabled: 1
     path: Assets/Scenes/Credits.unity
