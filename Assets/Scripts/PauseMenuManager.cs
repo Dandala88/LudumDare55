@@ -10,6 +10,8 @@ public class PauseMenuManager : MonoBehaviour
     public GameObject transition;
     public TMP_Text acquiredText;
 
+    private bool inTransition;
+
     public void PauseGame()
     {
         if (GameManager.paused)
@@ -18,9 +20,12 @@ public class PauseMenuManager : MonoBehaviour
         }
         else
         {
-            GameManager.paused = true;
-            Time.timeScale = 0;
-            menu.SetActive(true);
+            if (!inTransition)
+            {
+                GameManager.paused = true;
+                Time.timeScale = 0;
+                menu.SetActive(true);
+            }
         }
     }
 
@@ -39,6 +44,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void LoadTransition()
     {
+        inTransition = true;
         if (CreditsManager.newGames > 0)
             acquiredText.text = "Summon's getting pretty good!";
         GameManager.paused = true;
@@ -48,6 +54,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void TransitionContinue()
     {
+        inTransition = false;
         GameManager.paused = false;
         transition.SetActive(false);
         Time.timeScale = 1;
