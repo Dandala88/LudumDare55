@@ -35,8 +35,9 @@ public class Player : MonoBehaviour, IHurt
     private bool invincible;
     private Renderer rend;
 
-
-    private bool attacking;
+    
+    public bool attacking;
+    private bool preventAutoSwitch;
 
     private void Awake()
     {
@@ -48,6 +49,9 @@ public class Player : MonoBehaviour, IHurt
         playerSummons = GetComponentInParent<PlayerSummons>();
         audioSource = GetComponent<AudioSource>();
         rend = GetComponentInChildren<Renderer>();
+
+        if (Input.anyKey)
+            preventAutoSwitch = true;
     }
 
     private void Start()
@@ -77,49 +81,44 @@ public class Player : MonoBehaviour, IHurt
         characterController.Move(movement * footSpeed * Time.deltaTime);
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void Move(Vector2 sentInput)
     {
-        if (context.performed)
+        input = sentInput;
+        movement = new Vector3(input.x, 0f, input.y);
+        if (input.x != 0)
         {
-            input = context.ReadValue<Vector2>();
-            movement = new Vector3(input.x, 0f, input.y);
-            if (input.x != 0)
-            {
-                if(!attacking)
-                    animator.Play("Walk");
-                direction = (int)Mathf.Sign(input.x);
-            }
-            else
-            {
-                if (!attacking)
-                    animator.Play("Idle");
-            }
+            if(!attacking)
+                animator.Play("Walk");
+            direction = (int)Mathf.Sign(input.x);
+        }
+        else
+        {
+            if (!attacking)
+                animator.Play("Idle");
         }
     }
 
-    public void Attack(InputAction.CallbackContext context)
+    public void Attack()
     {
-        if (context.started)
-        {
-            if(!attacking)
-                audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
-            EnableHitbox(true);
-            attacking = true;
-            animator.Play("Attack_Primary");
-
-            //if (attackCycle)
-            //    animator.Play("Attack_Primary");
-            //else
-            //    animator.Play("Attack_Secondary");
-        }
+        if(!attacking)
+            audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
+        EnableHitbox(true);
+        attacking = true;
+        animator.Play("Attack_Primary");
     }
 
     public void Summon(InputAction.CallbackContext context)
     {
-        if (context.started && !attacking)
+        if (context.started && !attacking && !preventAutoSwitch)
         {
             var value = (int)Mathf.Sign(context.ReadValue<float>());
+            Debug.Log(value);
             playerSummons.Summon(value);
+        }
+
+        if(context.canceled)
+        {
+            preventAutoSwitch = false;
         }
     }
 

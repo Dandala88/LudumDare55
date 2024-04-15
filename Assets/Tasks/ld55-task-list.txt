@@ -1,24 +1,18 @@
+----------------------------------
+To Do
+----------------------------------
 bosses
-
 new game + indicator
-
 balance different summons
-
-hide cursor
-
 alt summon swap
-
 alt attack
-
 lower volume on hell track a touch
-
 add resolve for getting pinned with too many enemies
-
 add restart to pause menu
-
 consider making instant death on priest dying
 
-
+----------------------------------
+Complete
 ----------------------------------
 X - preserve direction on change
 x - enemy target bug
@@ -31,3 +25,7 @@ x - remove quit button it doesnt work in webgl
 x - summon die swap
 x - add iframes
 
+----------------------------------
+Won't Do
+----------------------------------
+hide cursor
