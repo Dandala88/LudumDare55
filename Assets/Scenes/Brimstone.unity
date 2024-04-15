@@ -3149,8 +3149,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   wonSummon: 2
+  boss: {fileID: 5013874015912098923, guid: 2f53a50a8a1ce384abf43b7895244f5c, type: 3}
   smoke: {fileID: 4364416987199287634, guid: 06a510c0c6208bc40861d30403388527, type: 3}
-  waves: 5
+  waves: 2
   currentWave: 0
 --- !u!4 &1313143146
 Transform:

@@ -18,6 +18,7 @@ public class WaveManager : MonoBehaviour
     public bool debug;
     public UnityEvent waveCompleteEvent;
     public GameManager.SummonType wonSummon;
+    public Summon boss;
 
     public GameObject smoke;
 
@@ -66,15 +67,21 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnCoroutine()
     {
+        var summonToSpawn = RandomSummon();
+        var currentMaxSummons = GameManager.GetWaveMaxSummon(currentWave);
+        if (currentWave == waves)
+        {
+            summonToSpawn = boss;
+            currentMaxSummons = 1;
+        }
         var spawnSide = Random.Range(0, 2) == 0 ? spawnPointLeft : spawnPointRight;
         var spawnPoint = spawnSide.position + (Vector3.forward * Random.Range(-3, 4));
-        var summon = Instantiate(RandomSummon(), spawnPoint, Quaternion.identity);
+        var summon = Instantiate(summonToSpawn, spawnPoint, Quaternion.identity);
         currentWaveSummons.Add(summon);
         summon.startDirection = Vector3.left;
         var smokeClone = Instantiate(smoke, summon.transform.position + Vector3.down, Quaternion.identity);
         waveStarted = true;
         yield return new WaitForSeconds(spawnTime);
-        var currentMaxSummons = GameManager.GetWaveMaxSummon(currentWave);
         if (currentWaveSummons.Count < currentMaxSummons)
         {
             StartCoroutine(SpawnCoroutine());

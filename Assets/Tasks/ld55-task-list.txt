@@ -5,6 +5,7 @@ To Do
 
 balance different summons
 bosses
+add enemy attack direction anywhere
 combo system
 consider making instant death on priest dying
 come up with lots of summon puns and randomize transition

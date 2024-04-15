@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool quickLevels = true;
+    public static bool quickLevels = false;
     public static bool paused;
     public const float SfxVolumeScale = 1f;
 
