@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class PauseMenuManager : MonoBehaviour
 {
     public GameObject menu;
     public GameObject transition;
+    public TMP_Text acquiredText;
 
     public void PauseGame()
     {
@@ -37,6 +39,8 @@ public class PauseMenuManager : MonoBehaviour
 
     public void LoadTransition()
     {
+        if (CreditsManager.newGames > 0)
+            acquiredText.text = "Summon's getting pretty good!";
         GameManager.paused = true;
         Time.timeScale = 0;
         transition.SetActive(true);

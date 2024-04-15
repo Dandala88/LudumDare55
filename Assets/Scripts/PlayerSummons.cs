@@ -44,6 +44,7 @@ public class PlayerSummons : MonoBehaviour
         
         selectedSummon.transform.position = lastSummon.transform.position;
         selectedSummon.movement = lastSummon.movement;
+        selectedSummon.direction = lastSummon.direction;
         OnSummonChange.Invoke(selectedSummon);
         selectedSummon.gameObject.SetActive(true);
         lastSummon.gameObject.SetActive(false);
