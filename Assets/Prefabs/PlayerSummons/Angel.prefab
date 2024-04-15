@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footSpeed: 3
-  maxHealth: 10
-  attack: 1
+  maxHealth: 15
+  attack: 3
   acquired: 1
   hurtClip: {fileID: 8300000, guid: b537a0fae8575b147bb070162c90783d, type: 3}
   attackClip: {fileID: 8300000, guid: 9e890e1194ed6c941a9f250a145776be, type: 3}
