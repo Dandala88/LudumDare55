@@ -78,7 +78,16 @@ public class Player : MonoBehaviour, IHurt
             input = context.ReadValue<Vector2>();
             movement = new Vector3(input.x, 0f, input.y);
             if (input.x != 0)
+            {
+                if(!attacking)
+                    animator.Play("Walk");
                 direction = (int)Mathf.Sign(input.x);
+            }
+            else
+            {
+                if (!attacking)
+                    animator.Play("Idle");
+            }
         }
     }
 
@@ -112,7 +121,7 @@ public class Player : MonoBehaviour, IHurt
     {
         attacking = false;
         EnableHitbox(false);
-        animator.Play("Idle");
+        animator.Play("Walk");
         attackCycle = !attackCycle;
     }
 
