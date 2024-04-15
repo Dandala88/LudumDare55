@@ -14,6 +14,7 @@ public class Player : MonoBehaviour, IHurt
     public AudioClip hurtClip;
     public AudioClip attackClip;
     public int direction;
+    public GameManager.SummonType summonType;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
     public static event HealthChangeAction OnHealthChange;
