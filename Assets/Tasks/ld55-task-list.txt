@@ -1,0 +1,34 @@
+add iframes
+
+summon die swap
+
+bosses
+
+new game + indicator
+
+balance different summons
+
+hide cursor
+
+alt summon swap
+
+alt attack
+
+lower volume on hell track a touch
+
+add resolve for getting pinned with too many enemies
+
+add restart to pause menu
+
+consider making instant death on priest dying
+
+
+----------------------------------
+X - preserve direction on change
+x - enemy target bug
+x - angel projectile: just adjusted animation
+x - new game + level transition text change
+x - music for cybertron level
+x - music for heaven level
+x - add random enemies in cybertron
+x - remove quit button it doesnt work in webgl
