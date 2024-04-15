@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ed03addb7a49cd347932bd54b8f99073
   - enabled: 1
-    path: Assets/Scenes/Dandala.unity
+    path: Assets/Scenes/Church.unity
     guid: 5989714cd71e16744900adb19a6e7dab
   - enabled: 1
     path: Assets/Scenes/Brimstone.unity
