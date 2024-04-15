@@ -31,6 +31,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        waves += CreditsManager.newGames;
         StartWave();
     }
 
@@ -65,7 +66,7 @@ public class WaveManager : MonoBehaviour
     {
         var spawnSide = Random.Range(0, 2) == 0 ? spawnPointLeft : spawnPointRight;
         var spawnPoint = spawnSide.position + (Vector3.forward * Random.Range(-3, 4));
-        var summon = Instantiate(primarySummon, spawnPoint, Quaternion.identity);
+        var summon = Instantiate(RandomSummon(), spawnPoint, Quaternion.identity);
         currentWaveSummons.Add(summon);
         summon.startDirection = Vector3.left;
         var smokeClone = Instantiate(smoke, summon.transform.position + Vector3.down, Quaternion.identity);
@@ -76,5 +77,18 @@ public class WaveManager : MonoBehaviour
         {
             StartCoroutine(SpawnCoroutine());
         }
+    }
+
+    private Summon RandomSummon()
+    {
+        var roll = Random.Range(0, 3);
+        if(roll == 0)
+            return primarySummon;
+        else if (roll == 1 && secondarySummon != null)
+            return secondarySummon;
+        else if (roll == 2 && tertiarySummon != null)
+            return tertiarySummon;
+
+        return primarySummon;
     }
 }
