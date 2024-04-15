@@ -95,7 +95,7 @@ public class Summon : MonoBehaviour, IHurt
         {
             audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
             if (attackCycle || !hasSecondary)
-                animator.Play("Attack_Primary");
+              animator.Play("Attack_Primary");
             else
                 animator.Play("Attack_Secondary");
         }
@@ -132,8 +132,6 @@ public class Summon : MonoBehaviour, IHurt
             if (health <= 0)
             {
                 target = null;
-                characterController.height = 0;
-                movement = Vector3.down;
                 animator.Play("Death");
                 StartCoroutine(DeathCoroutine());
             }
