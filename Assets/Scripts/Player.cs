@@ -182,7 +182,7 @@ public class Player : MonoBehaviour, IHurt
             yield return new WaitForSeconds(flashTime);
             t += flashTime;
         }
-        rend.enabled = true;
+        rend.materials[0].color = baseColor;
         invincible = false;
     }
 }

@@ -111,6 +111,17 @@
                 },
                 {
                     "name": "",
+                    "id": "766e4aab-9347-42ad-aa44-69c47cc9ce60",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f90fd615-b4f7-45b3-a0f4-a6a5da0f68a2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",

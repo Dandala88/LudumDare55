@@ -4,8 +4,6 @@ To Do
 bosses
 new game + indicator
 balance different summons
-alt summon swap
-alt attack
 lower volume on hell track a touch
 add resolve for getting pinned with too many enemies
 add restart to pause menu
@@ -24,6 +22,8 @@ x - add random enemies in cybertron
 x - remove quit button it doesnt work in webgl
 x - summon die swap
 x - add iframes
+x - alt summon swap
+x - alt attack
 
 ----------------------------------
 Won't Do

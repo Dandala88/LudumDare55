@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static bool quickLevels = true;
     public static bool paused;
-    public const float SfxVolumeScale = 3f;
+    public const float SfxVolumeScale = 1f;
 
     public static bool priest = true;
     public static bool wraith;
