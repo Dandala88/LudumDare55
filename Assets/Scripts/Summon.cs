@@ -99,7 +99,7 @@ public class Summon : MonoBehaviour, IHurt
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == target.gameObject && health > 0)
+        if (other.gameObject == target?.gameObject && health > 0)
         {
             attacking = true;
         }
@@ -107,7 +107,7 @@ public class Summon : MonoBehaviour, IHurt
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == target.gameObject)
+        if(other.gameObject == target?.gameObject)
         {
             attacking = false;
         }
