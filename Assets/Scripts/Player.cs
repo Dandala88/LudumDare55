@@ -162,7 +162,7 @@ public class Player : MonoBehaviour, IHurt
             fist.EnableHitBox(enable);
     }
 
-    public int Damage()
+    public int GetDamage()
     {
         return attack;
     }

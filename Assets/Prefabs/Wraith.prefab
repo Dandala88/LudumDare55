@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footSpeed: 3
-  health: 1
+  health: 2
   attack: 1
   attackInterval: 2
   hasSecondary: 0

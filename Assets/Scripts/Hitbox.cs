@@ -8,6 +8,7 @@ public class Hitbox : MonoBehaviour
     private SphereCollider coll;
     private AudioSource audioSource;
 
+
     private void Awake()
     {
         coll = GetComponent<SphereCollider>();
@@ -18,9 +19,11 @@ public class Hitbox : MonoBehaviour
     {
         if (other.gameObject.GetComponent<IHurt>() != null && other.gameObject.layer != gameObject.layer)
         {
-            var hurtable = other.gameObject.GetComponent<IHurt>();
+            var hurter = gameObject.GetComponentInParent<IHurt>();
+            var hurtee = other.gameObject.GetComponent<IHurt>();
+
             audioSource.PlayOneShot(hit, GameManager.SfxVolumeScale);
-            hurtable.Hurt(hurtable.Damage());
+            hurtee.Hurt(hurter.GetDamage());
         }
     }
 

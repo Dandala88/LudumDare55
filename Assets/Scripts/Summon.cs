@@ -145,7 +145,7 @@ public class Summon : MonoBehaviour, IHurt
         target = receivedPlayer.gameObject;
     }
 
-    public int Damage()
+    public int GetDamage()
     {
         return attack;
     }

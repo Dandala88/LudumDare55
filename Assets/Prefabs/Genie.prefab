@@ -1042,8 +1042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83edee9bdfd58b746bed0148e526a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footSpeed: 0.85
-  health: 3
+  footSpeed: 1
+  health: 5
   attack: 1
   attackInterval: 3
   hasSecondary: 0

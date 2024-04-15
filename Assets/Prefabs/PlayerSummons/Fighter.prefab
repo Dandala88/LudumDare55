@@ -1125,7 +1125,7 @@ MonoBehaviour:
   footSpeed: 2
   health: 0
   maxHealth: 10
-  attack: 1
+  attack: 2
   acquired: 1
   hurtClip: {fileID: 8300000, guid: b80de4a58fe31614a9e1d3bf4d515ad3, type: 3}
   attackClip: {fileID: 8300000, guid: eeac17b46f7ad784d9249393dffaf9bf, type: 3}

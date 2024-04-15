@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour
     public Summon primarySummon;
     public Summon secondarySummon;
     public Summon tertiarySummon;
+    public Summon quaternarySummon;
     public Transform spawnPointLeft;
     public Transform spawnPointRight;
     public float spawnTime = 3;
@@ -83,13 +84,15 @@ public class WaveManager : MonoBehaviour
 
     private Summon RandomSummon()
     {
-        var roll = Random.Range(0, 3);
-        if(roll == 0)
+        var roll = Random.Range(0, 4);
+        if (roll == 0)
             return primarySummon;
         else if (roll == 1 && secondarySummon != null)
             return secondarySummon;
         else if (roll == 2 && tertiarySummon != null)
             return tertiarySummon;
+        else if (roll == 3 && quaternarySummon != null)
+            return quaternarySummon;
 
         return primarySummon;
     }
