@@ -2854,6 +2854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 1055390484}
   transition: {fileID: 1766898695}
+  acquiredText: {fileID: 1992095202}
 --- !u!1 &925072850
 GameObject:
   m_ObjectHideFlags: 0
