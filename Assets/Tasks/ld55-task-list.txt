@@ -1,12 +1,10 @@
 ----------------------------------
 To Do
 ----------------------------------
-bosses
+add resolve for getting pinned with too many enemies
 new game + indicator
 balance different summons
-lower volume on hell track a touch
-add resolve for getting pinned with too many enemies
-add restart to pause menu
+bosses
 consider making instant death on priest dying
 
 ----------------------------------
@@ -24,8 +22,11 @@ x - summon die swap
 x - add iframes
 x - alt summon swap
 x - alt attack
+x -lower volume on hell track a touch: just made all sounds the same playback level
 
 ----------------------------------
 Won't Do
 ----------------------------------
 hide cursor
+add restart to pause menu
+
