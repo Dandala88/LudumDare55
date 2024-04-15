@@ -1051,6 +1051,8 @@ MonoBehaviour:
   hurtClip: {fileID: 8300000, guid: 2c32c37c337908a4895e2ba0fc84b993, type: 3}
   attackClip: {fileID: 8300000, guid: 055047754eff7274b82d7950fbffc033, type: 3}
   startDirection: {x: 0, y: 0, z: 0}
+  iFrames: 0.5
+  iFlashFrames: 0.02
 --- !u!143 &2457274911653697054
 CharacterController:
   m_ObjectHideFlags: 0

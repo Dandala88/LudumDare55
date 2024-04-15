@@ -15,6 +15,9 @@ public class Player : MonoBehaviour, IHurt
     public AudioClip hurtClip;
     public AudioClip attackClip;
     public int direction;
+    public float iFrames;
+    [Tooltip("iFlashFrames / iframes = time between flashes")]
+    public float iFlashFrames;
     public GameManager.SummonType summonType;
 
     public delegate void HealthChangeAction(float newHealth, float maxHealth);
@@ -29,6 +32,8 @@ public class Player : MonoBehaviour, IHurt
     private CharacterController characterController;
     private PlayerSummons playerSummons;
     private AudioSource audioSource;
+    private bool invincible;
+    private Renderer rend;
 
 
     private bool attacking;
@@ -42,6 +47,7 @@ public class Player : MonoBehaviour, IHurt
         characterController = GetComponent<CharacterController>();
         playerSummons = GetComponentInParent<PlayerSummons>();
         audioSource = GetComponent<AudioSource>();
+        rend = GetComponentInChildren<Renderer>();
     }
 
     private void Start()
@@ -127,12 +133,17 @@ public class Player : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
-        health-=amount;
-        OnHealthChange.Invoke(health, maxHealth);
-        if(health <= 0)
+        if (!invincible)
         {
-            Death();
+            audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
+            health -= amount;
+            OnHealthChange.Invoke(health, maxHealth);
+            if (health <= 0)
+            {
+                Death();
+            }
+            else
+                StartCoroutine(IFramesCoroutine());
         }
     }
 
@@ -153,5 +164,26 @@ public class Player : MonoBehaviour, IHurt
     public int Damage()
     {
         return attack;
+    }
+
+    private IEnumerator IFramesCoroutine()
+    {
+        var baseColor = rend.materials[0].color;
+        var colorToggle = false;
+        invincible = true;
+        var t = 0f;
+        while (t < iFrames)
+        {
+            if (colorToggle)
+                rend.materials[0].color = Color.red;
+            else
+                rend.materials[0].color = baseColor;
+            colorToggle = !colorToggle;
+            var flashTime = iFlashFrames / iFrames;
+            yield return new WaitForSeconds(flashTime);
+            t += flashTime;
+        }
+        rend.enabled = true;
+        invincible = false;
     }
 }

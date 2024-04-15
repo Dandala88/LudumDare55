@@ -1,7 +1,3 @@
-add iframes
-
-summon die swap
-
 bosses
 
 new game + indicator
@@ -32,3 +28,6 @@ x - music for cybertron level
 x - music for heaven level
 x - add random enemies in cybertron
 x - remove quit button it doesnt work in webgl
+x - summon die swap
+x - add iframes
+

@@ -1218,12 +1218,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footSpeed: 2
+  health: 0
   maxHealth: 10
   attack: 1
   acquired: 1
   hurtClip: {fileID: 8300000, guid: b80de4a58fe31614a9e1d3bf4d515ad3, type: 3}
   attackClip: {fileID: 8300000, guid: eeac17b46f7ad784d9249393dffaf9bf, type: 3}
   direction: 0
+  iFrames: 0.5
+  iFlashFrames: 0.02
   summonType: 0
   movement: {x: 0, y: 0, z: 0}
 --- !u!143 &3816850739523515191
