@@ -24,6 +24,15 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+
+        if(CreditsManager.newGames > 0)
+        {
+            priest = true;
+            wraith = true;
+            genie = true;
+            angel = true;
+        }
+
         if (quickLevels)
             Debug.LogWarning("Quick Levels turned on. Turn off before deployment");
     }

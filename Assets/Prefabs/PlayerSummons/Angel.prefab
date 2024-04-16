@@ -82,15 +82,16 @@ MonoBehaviour:
   footSpeed: 3
   health: 0
   maxHealth: 15
-  attack: 5
+  attack: 10
   acquired: 1
   hurtClip: {fileID: 8300000, guid: b537a0fae8575b147bb070162c90783d, type: 3}
   attackClip: {fileID: 8300000, guid: 9e890e1194ed6c941a9f250a145776be, type: 3}
-  direction: 0
+  direction: {x: 0, y: 0, z: 0}
   iFrames: 0.5
   iFlashFrames: 0.02
   summonType: 3
   movement: {x: 0, y: 0, z: 0}
+  invincible: 0
   attacking: 0
 --- !u!143 &8144898901193566040
 CharacterController:

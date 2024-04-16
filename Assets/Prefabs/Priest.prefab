@@ -696,7 +696,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8696f06304f16a438443f586000585d, type: 2}
+  - {fileID: 2100000, guid: 0b993646e06055943a36959481ef67a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   hurtClip: {fileID: 8300000, guid: b80de4a58fe31614a9e1d3bf4d515ad3, type: 3}
   attackClip: {fileID: 8300000, guid: eeac17b46f7ad784d9249393dffaf9bf, type: 3}
   startDirection: {x: 0, y: 0, z: 0}
-  iFrames: 0.5
+  iFrames: 0.3
   iFlashFrames: 0.02
 --- !u!95 &3101533855096593081
 Animator:

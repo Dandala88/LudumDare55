@@ -65,7 +65,7 @@ public class Summon : MonoBehaviour, IHurt
             movement.y += Physics.gravity.y * Time.deltaTime;
         }
 
-        if (target != null && !invincible)
+        if (target != null)
         {
             var targetMovement = (target.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
