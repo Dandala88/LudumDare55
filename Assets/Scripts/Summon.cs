@@ -30,6 +30,7 @@ public class Summon : MonoBehaviour, IHurt
     private bool attacking;
     private bool invincible;
     private Renderer rend;
+    private bool dying;
 
 
     private void Awake()
@@ -130,7 +131,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void Hurt(int amount)
     {
-        if (!invincible)
+        if (!invincible && !dying)
         {
             movement = Vector3.zero;
             audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
@@ -158,6 +159,7 @@ public class Summon : MonoBehaviour, IHurt
 
     private IEnumerator DeathCoroutine()
     {
+        dying = true;
         yield return new WaitForSeconds(deathSeconds);
         Death();
     }

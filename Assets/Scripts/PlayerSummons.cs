@@ -23,7 +23,10 @@ public class PlayerSummons : MonoBehaviour
         foreach (var child in summonChildren)
         {
             summons.Add(child);
-            child.acquired = GameManager.GetSummonFlag(child.summonType);
+            if (CreditsManager.newGames > 0)
+                child.acquired = true;
+            else
+                child.acquired = GameManager.GetSummonFlag(child.summonType);
             child.gameObject.SetActive(false);
         }
 
