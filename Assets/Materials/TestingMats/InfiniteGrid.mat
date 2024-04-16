@@ -74,7 +74,7 @@ Material:
     - _GlossyReflections: 1
     - _GridSpacing: 5.3
     - _GridThickness: 0.016
-    - _Metallic: 0
+    - _Metallic: 0.341
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
