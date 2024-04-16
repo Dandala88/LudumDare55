@@ -156,7 +156,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.7539701, g: 0.754717, b: 0.5517978, a: 1}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.70096123, a: 1}
   m_Intensity: 1.05
   m_Range: 10
   m_SpotAngle: 30
@@ -4659,6 +4659,7 @@ MonoBehaviour:
   primarySummon: {fileID: 7996533620746902792, guid: d86bb19d67a8be948b6bab34f6d77523, type: 3}
   secondarySummon: {fileID: 0}
   tertiarySummon: {fileID: 0}
+  quaternarySummon: {fileID: 0}
   spawnPointLeft: {fileID: 633239439}
   spawnPointRight: {fileID: 1560412802}
   spawnTime: 1

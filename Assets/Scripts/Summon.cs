@@ -26,9 +26,11 @@ public class Summon : MonoBehaviour, IHurt
     private float attackElapsed;
     private AudioSource audioSource;
     private Player player;
+    private bool attackMode;
     private bool attacking;
     private bool invincible;
     private Renderer rend;
+    private bool dying;
 
 
     private void Awake()
@@ -64,28 +66,30 @@ public class Summon : MonoBehaviour, IHurt
             movement.y += Physics.gravity.y * Time.deltaTime;
         }
 
-        if (target != null && !invincible)
+        if (target != null)
         {
             var targetMovement = (target.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
-            if (attackElapsed >= attackInterval && attacking)
+            if (attackElapsed >= attackInterval && attackMode)
             {
                 Attack();
                 attackElapsed = 0;
             }
             attackElapsed += Time.deltaTime;
         }
-        characterController.Move(movement * footSpeed * Time.deltaTime);
+
+        if (!attacking)
+            characterController.Move(movement * footSpeed * Time.deltaTime);
 
     }
 
     private void LateUpdate()
     {
-        if (target != null)
+        if (target != null && !attacking)
         {
             var diffVec = target.transform.position - transform.position;
 
-            transform.forward = Vector3.right * Mathf.Sign(diffVec.x);
+            transform.forward = diffVec;
         }
     }
 
@@ -93,9 +97,10 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (!invincible)
         {
+            attacking = true;
             audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
             if (attackCycle || !hasSecondary)
-                animator.Play("Attack_Primary");
+              animator.Play("Attack_Primary");
             else
                 animator.Play("Attack_Secondary");
         }
@@ -103,6 +108,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void EndAttack()
     {
+        attacking = false;
         animator.Play("Idle");
         attackCycle = !attackCycle;
     }
@@ -111,7 +117,7 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (other.gameObject == target?.gameObject && health > 0)
         {
-            attacking = true;
+            attackMode = true;
         }
     }
 
@@ -119,21 +125,20 @@ public class Summon : MonoBehaviour, IHurt
     {
         if(other.gameObject == target?.gameObject)
         {
-            attacking = false;
+            attackMode = false;
         }
     }
 
     public void Hurt(int amount)
     {
-        if (!invincible)
+        if (!invincible && !dying)
         {
+            movement = Vector3.zero;
             audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
             health -= amount;
             if (health <= 0)
             {
                 target = null;
-                characterController.height = 0;
-                movement = Vector3.down;
                 animator.Play("Death");
                 StartCoroutine(DeathCoroutine());
             }
@@ -147,13 +152,14 @@ public class Summon : MonoBehaviour, IHurt
         target = receivedPlayer.gameObject;
     }
 
-    public int Damage()
+    public int GetDamage()
     {
         return attack;
     }
 
     private IEnumerator DeathCoroutine()
     {
+        dying = true;
         yield return new WaitForSeconds(deathSeconds);
         Death();
     }

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IHurt
     public bool acquired;
     public AudioClip hurtClip;
     public AudioClip attackClip;
-    public int direction;
+    public Vector3 direction;
     public float iFrames;
     [Tooltip("iFlashFrames / iframes = time between flashes")]
     public float iFlashFrames;
@@ -32,8 +32,9 @@ public class Player : MonoBehaviour, IHurt
     private CharacterController characterController;
     private PlayerSummons playerSummons;
     private AudioSource audioSource;
-    private bool invincible;
+    public bool invincible;
     private Renderer rend;
+    private Color baseColor;
 
     
     public bool attacking;
@@ -42,13 +43,14 @@ public class Player : MonoBehaviour, IHurt
     private void Awake()
     {
         hitboxes = GetComponentsInChildren<Hitbox>();
-        direction = 1;
         health = maxHealth;
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerSummons = GetComponentInParent<PlayerSummons>();
         audioSource = GetComponent<AudioSource>();
         rend = GetComponentInChildren<Renderer>();
+        baseColor = rend.materials[0].color;
+
 
         if (Input.anyKey)
             preventAutoSwitch = true;
@@ -61,7 +63,9 @@ public class Player : MonoBehaviour, IHurt
 
     private void OnEnable()
     {
-        if(OnHealthChange != null)
+        invincible = false;
+        rend.materials[0].color = baseColor;
+        if (OnHealthChange != null)
             OnHealthChange.Invoke(health, maxHealth);
         animator.Play("Idle");
     }
@@ -84,20 +88,18 @@ public class Player : MonoBehaviour, IHurt
     {
         input = sentInput;
         movement = new Vector3(input.x, 0f, input.y);
-        if (input.x != 0)
+        if (input.x != 0 || input.y != 0)
         {
             if(!attacking)
                 animator.Play("Walk");
-            direction = (int)Mathf.Sign(input.x);
+            transform.forward = movement.normalized;
+            direction = transform.forward;
         }
         else
         {
             if (!attacking)
                 animator.Play("Idle");
         }
-
-        if (input.y != 0 || input.x != 0)
-            transform.forward = movement.normalized;
     }
 
     public void Attack()
@@ -162,14 +164,13 @@ public class Player : MonoBehaviour, IHurt
             fist.EnableHitBox(enable);
     }
 
-    public int Damage()
+    public int GetDamage()
     {
         return attack;
     }
 
     private IEnumerator IFramesCoroutine()
     {
-        var baseColor = rend.materials[0].color;
         var colorToggle = false;
         invincible = true;
         var t = 0f;

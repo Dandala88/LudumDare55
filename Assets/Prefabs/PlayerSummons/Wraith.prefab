@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footSpeed: 5
   health: 0
-  maxHealth: 5
+  maxHealth: 6
   attack: 1
   acquired: 1
   hurtClip: {fileID: 8300000, guid: 86e441aa8a5e34245b6f9d6bd762f5b2, type: 3}

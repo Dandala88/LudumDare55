@@ -2,9 +2,7 @@
 To Do
 ----------------------------------
 
-
 balance different summons
-bosses
 combo system
 consider making instant death on priest dying
 come up with lots of summon puns and randomize transition
@@ -36,4 +34,6 @@ Won't Do?
 hide cursor
 add restart to pause menu
 attack penalty: penalty is animation time but it'd be nice to give more feedback
+bosses
+
 
