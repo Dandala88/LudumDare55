@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footSpeed: 1
   health: 5
-  attack: 1
+  attack: 2
   attackInterval: 3
   hasSecondary: 0
   deathSeconds: 1

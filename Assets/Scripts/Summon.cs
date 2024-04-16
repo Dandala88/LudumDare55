@@ -26,6 +26,7 @@ public class Summon : MonoBehaviour, IHurt
     private float attackElapsed;
     private AudioSource audioSource;
     private Player player;
+    private bool attackMode;
     private bool attacking;
     private bool invincible;
     private Renderer rend;
@@ -68,24 +69,26 @@ public class Summon : MonoBehaviour, IHurt
         {
             var targetMovement = (target.transform.position - transform.position).normalized;
             movement = new Vector3(targetMovement.x, movement.y, targetMovement.z);
-            if (attackElapsed >= attackInterval && attacking)
+            if (attackElapsed >= attackInterval && attackMode)
             {
                 Attack();
                 attackElapsed = 0;
             }
             attackElapsed += Time.deltaTime;
         }
-        characterController.Move(movement * footSpeed * Time.deltaTime);
+
+        if (!attacking)
+            characterController.Move(movement * footSpeed * Time.deltaTime);
 
     }
 
     private void LateUpdate()
     {
-        if (target != null)
+        if (target != null && !attacking)
         {
             var diffVec = target.transform.position - transform.position;
 
-            transform.forward = Vector3.right * Mathf.Sign(diffVec.x);
+            transform.forward = diffVec;
         }
     }
 
@@ -93,6 +96,7 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (!invincible)
         {
+            attacking = true;
             audioSource.PlayOneShot(attackClip, GameManager.SfxVolumeScale);
             if (attackCycle || !hasSecondary)
               animator.Play("Attack_Primary");
@@ -103,6 +107,7 @@ public class Summon : MonoBehaviour, IHurt
 
     public void EndAttack()
     {
+        attacking = false;
         animator.Play("Idle");
         attackCycle = !attackCycle;
     }
@@ -111,7 +116,7 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (other.gameObject == target?.gameObject && health > 0)
         {
-            attacking = true;
+            attackMode = true;
         }
     }
 
@@ -119,7 +124,7 @@ public class Summon : MonoBehaviour, IHurt
     {
         if(other.gameObject == target?.gameObject)
         {
-            attacking = false;
+            attackMode = false;
         }
     }
 
@@ -127,6 +132,7 @@ public class Summon : MonoBehaviour, IHurt
     {
         if (!invincible)
         {
+            movement = Vector3.zero;
             audioSource.PlayOneShot(hurtClip, GameManager.SfxVolumeScale);
             health -= amount;
             if (health <= 0)

@@ -550,7 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footSpeed: 2.5
   health: 7
-  attack: 5
+  attack: 3
   attackInterval: 3
   hasSecondary: 0
   deathSeconds: 1
